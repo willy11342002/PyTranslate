@@ -1,7 +1,0 @@
-googletrans==4.0.0-rc1
-pyinstaller==4.0
-pypiwin32
-pyautogui
-keyboard
-PySide2
-pynput
