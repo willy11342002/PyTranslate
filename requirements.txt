@@ -1,2 +1,3 @@
 pyiwn32
 keyboard
+pystray

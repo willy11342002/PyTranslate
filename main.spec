@@ -1,14 +1,21 @@
 # -*- mode: python ; coding: utf-8 -*-
-
-
-block_cipher = None
+from pathlib import Path
+import builtins
+p = Path('.env')
+for line in p.read_text(encoding='utf8').split('\n'):
+    if '=' not in line:
+        continue
+    key, value = line.split('=', 1)
+    setattr(builtins, key, value)
 
 
 a = Analysis(
     ['main.py'],
-    pathex=[],
+    pathex=[Path(SPECPATH).absolute()],
     binaries=[],
-    datas=[],
+    datas=[
+        ('icon.png', '.')
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -16,17 +23,17 @@ a = Analysis(
     excludes=[],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
-    cipher=block_cipher,
+    cipher=None,
     noarchive=False,
 )
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure, a.zipped_data, cipher=None)
 
 exe = EXE(
     pyz,
     a.scripts,
     [],
     exclude_binaries=True,
-    name='中鍵快速鍵程式',
+    name='中鍵快速鍵小工具',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -46,5 +53,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='main',
+    name=f'中鍵快速鍵小工具 V{VERSION}',
 )
